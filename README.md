@@ -15,6 +15,14 @@ A professional, production-ready travel itinerary planner for Tamil Nadu, built 
 - **Quality Assurance:** Comprehensive end-to-end (E2E) and unit testing suite to ensure high reliability.
 - **Containerization:** Fully Dockerized for consistent development and deployment environments.
 
+## Data Model (Schema)
+The architecture follows a strict hierarchy:
+- **Package:** The top-level travel offering.
+- **Circuit:** A curated experience within a package, consisting of multiple **Places**.
+- **Places:** Geographical destinations linked to circuits via a many-to-many relationship.
+- **Hotel:** Multi-tier accommodation (Budget, Standard, Premium, Luxury) linked to specific travel plans.
+- **Booking:** Manages user selection of circuits, transport types, and hotel tiers with enforced data integrity.
+
 ## Setup
 1. Clone the repository: `git clone https://github.com/AdityaShankar1/Travel-Django.git`
 2. Build the Docker image: `docker build -t travel-master .`
