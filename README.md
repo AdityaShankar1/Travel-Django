@@ -1,18 +1,17 @@
 # Travel-Django
 
-A production-ready, AI-powered travel itinerary planner focused on Tamil Nadu tourism. 
+A professional, production-ready travel itinerary planner for Tamil Nadu, built with high engineering standards.
 
-## Features
-- **Smart AI Assistant:** Integrated with Phi3 via Ollama, featuring custom hybrid rule-based guardrails to prevent misuse and optimize token usage.
+## Technical Architecture
+- **Backend:** Django with **PostgreSQL** for robust, relational data management.
+- **Design Principles:** Developed with **SOLID** design principles and **GRASP** patterns to ensure modular, maintainable, and scalable code.
+- **AI Engine:** Integrated with Phi3 via Ollama, featuring custom hybrid rule-based guardrails to prevent misuse and optimize token usage.
+
+## Key Features
 - **Weather Intelligence:** Real-time weather monitoring for key TN hubs (Chennai, Coimbatore, Madurai, Trichy, Tuticorin) using OpenMeteo API.
 - **Interactive Mapping:** Built-in Leaflet.js maps for visualizing circuits relative to regional climate conditions.
-- **Production-Ready:** Containerized with Docker for seamless deployment.
-
-## Tech Stack
-- **Backend:** Django
-- **AI Engine:** Ollama (Phi3)
-- **External APIs:** OpenMeteo (Weather), Leaflet.js (Mapping)
-- **Deployment:** Docker
+- **Quality Assurance:** Comprehensive end-to-end (E2E) and unit testing suite to ensure high reliability.
+- **Containerization:** Fully Dockerized for consistent development and deployment environments.
 
 ## Setup
 1. Clone the repository: `git clone https://github.com/AdityaShankar1/Travel-Django.git`
