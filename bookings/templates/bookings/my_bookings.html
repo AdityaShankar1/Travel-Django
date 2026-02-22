@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">My Travel Bookings</h2>
+
+    {% if bookings %}
+    <table class="table table-hover shadow-sm bg-white rounded">
+        <thead class="table-primary">
+            <tr>
+                <th>Circuit</th>
+                <th>Hotel Tier</th>
+                <th>Transport</th>
+                <th>Start Date</th>
+                <th>Total Price</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.circuit.name }}</td>
+                <td>{{ booking.get_hotel_tier_display }}</td>
+                <td>{{ booking.get_transport_choice_display }}</td>
+                <td>{{ booking.start_date }}</td>
+                <td><strong>₹{{ booking.calculate_total_price }}</strong></td>
+                <td>
+                    {% if booking.is_confirmed %}
+                        <span class="badge bg-success">Confirmed</span>
+                    {% else %}
+                        <span class="badge bg-warning text-dark">Pending Payment</span>
+                        <br>
+                        <button class="btn btn-sm btn-outline-primary mt-1">Pay Now</button>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-info">
+        You haven't made any bookings yet. <a href="{% url 'home' %}">Start exploring packages!</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

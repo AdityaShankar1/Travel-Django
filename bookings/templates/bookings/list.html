@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Select a Travel Package</h1>
+
+    <form method="GET" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search packages (e.g., Heritage, Hills)..." value="{{ query|default:'' }}">
+            <button class="btn btn-secondary" type="submit">Search</button>
+        </div>
+    </form>
+
+    <div class="card p-4 mb-5 bg-light border-primary">
+        <h5>Ask our AI for custom combinations</h5>
+        <div class="input-group">
+            <input type="text" id="prompt" class="form-control" placeholder="Ask about our packages...">
+            <button class="btn btn-primary" onclick="askAI()">Ask AI</button>
+        </div>
+        <p id="response" class="mt-2 text-muted fst-italic"></p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for package in packages %}
+        <div class="col">
+            <div class="card h-100 shadow-sm border-info">
+                {% if package.thumbnail %}
+                    <img src="{{ package.thumbnail.url }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title text-primary">{{ package.name }}</h5>
+                    <p class="card-text">{{ package.description|truncatewords:20 }}</p>
+                    <a href="{% url 'create_booking' package.id %}" class="btn btn-outline-info w-100">Book This Package</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No packages found matching your search.</p>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+async function askAI() {
+    const prompt = document.getElementById('prompt').value;
+    const resEl = document.getElementById('response');
+    resEl.innerText = "Thinking...";
+    const response = await fetch('/chat/', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}'},
+        body: JSON.stringify({prompt})
+    });
+    const data = await response.json();
+    resEl.innerText = data.reply;
+}
+</script>
+{% endblock %}

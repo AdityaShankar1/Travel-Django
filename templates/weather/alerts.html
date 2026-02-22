@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<style>
+    :root {
+        --glass-bg: rgba(255, 255, 255, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.3);
+        --premium-blue: #0061ff;
+        --premium-cyan: #60efff;
+    }
+
+    .weather-dashboard {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    #weather-map {
+        height: 500px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        margin-bottom: 30px;
+    }
+
+    .weather-card {
+        background: var(--glass-bg);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--glass-border);
+        border-radius: 15px;
+        padding: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+    }
+
+    .weather-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .city-name {
+        font-weight: 700;
+        color: #2d3436;
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+    }
+
+    .temp-value {
+        font-size: 2.5rem;
+        font-weight: 800;
+        background: linear-gradient(to right, var(--premium-blue), var(--premium-cyan));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .weather-detail {
+        font-size: 0.9rem;
+        color: #636e72;
+    }
+
+    .alert-header {
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .alert-header h1 {
+        font-weight: 800;
+        color: #2d3436;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .badge-weather {
+        background: var(--premium-blue);
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+    }
+
+    .city-col {
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+</style>
+
+<div class="weather-dashboard">
+    <div class="alert-header">
+        <h1>Tamil Nadu Weather Alerts</h1>
+        <p class="text-muted">Real-time tracking of top 5 cities powered by Open-Meteo</p>
+    </div>
+
+    <div id="weather-map"></div>
+
+    <div class="row g-4">
+        {% for data in weather_data %}
+        <div class="col-md-4 col-lg-2.4 city-col">
+            <div class="weather-card">
+                <div class="city-name">{{ data.city }}</div>
+                {% if data.error %}
+                <div class="text-danger">Failed to load data</div>
+                {% else %}
+                <div class="temp-value">{{ data.temp }}°C</div>
+                <div class="badge-weather mb-2">{{ data.condition }}</div>
+                <div class="weather-detail">
+                    <div><i class="bi bi-droplets"></i> Humidity: {{ data.humidity }}%</div>
+                    <div><i class="bi bi-wind"></i> Wind: {{ data.wind_speed }} km/h</div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initialize map centered on Tamil Nadu
+        var map = L.map('weather-map').setView([10.8, 78.5], 7);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        var weatherData = JSON.parse('{{ weather_data_json|escapejs }}');
+
+        weatherData.forEach(function (city) {
+            if (!city.error) {
+                var popupContent = `
+                    <div style="font-family: sans-serif;">
+                        <strong style="font-size: 1.1rem;">${city.city}</strong><br>
+                        <span style="font-size: 1.5rem; font-weight: bold; color: #0061ff;">${city.temp}°C</span><br>
+                        <span>${city.condition}</span><br>
+                        <hr style="margin: 5px 0;">
+                        <small>Humidity: ${city.humidity}%</small><br>
+                        <small>Wind: ${city.wind_speed} km/h</small>
+                    </div>
+                `;
+                L.marker([city.lat, city.lon]).addTo(map)
+                    .bindPopup(popupContent);
+            }
+        });
+    });
+</script>
+{% endblock %}
