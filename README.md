@@ -1,5 +1,7 @@
 # Travel-Django
 
+## TravelMaster using PostgreSQL + Django + Bootstrap CSS + Ollama (Phi 3.8)
+
 A professional, production-ready travel itinerary planner for Tamil Nadu, built with high engineering standards.
 
 ## Technical Architecture
@@ -41,4 +43,4 @@ The architecture follows a strict hierarchy:
 
 
 ---
-*Built with professional-grade engineering practices for scalable travel solutions.*
+*Built with professional-grade engineering practices with ❤️ for the travel industry *
