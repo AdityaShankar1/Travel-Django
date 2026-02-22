@@ -5,6 +5,8 @@ A professional, production-ready travel itinerary planner for Tamil Nadu, built 
 ## Technical Architecture
 - **Backend:** Django with **PostgreSQL** for robust, relational data management.
 - **Design Principles:** Developed with **SOLID** design principles and **GRASP** patterns to ensure modular, maintainable, and scalable code.
+- **Frontend:** Responsive UI developed using **Bootstrap CSS**.
+
 - **AI Engine:** Integrated with Phi3 via Ollama, featuring custom hybrid rule-based guardrails to prevent misuse and optimize token usage.
 
 ## Key Features
@@ -17,6 +19,18 @@ A professional, production-ready travel itinerary planner for Tamil Nadu, built 
 1. Clone the repository: `git clone https://github.com/AdityaShankar1/Travel-Django.git`
 2. Build the Docker image: `docker build -t travel-master .`
 3. Run the container: `docker run -p 8000:8000 travel-master`
+
+## Output Screenshots:
+
+### Homepage with Ask AI:
+<img width="1229" height="823" alt="image" src="https://github.com/user-attachments/assets/34549d56-bdb2-49e4-91db-a52464654f3c" />
+
+## Weather Alerts :
+<img width="1118" height="810" alt="image" src="https://github.com/user-attachments/assets/c480e45b-61ee-4f28-8d9c-32dd97f05702" />
+
+## Bookings History Page:
+<img width="828" height="353" alt="image" src="https://github.com/user-attachments/assets/1804fe30-4953-4605-b263-6fc5ee7af609" />
+
 
 ---
 *Built with professional-grade engineering practices for scalable travel solutions.*
