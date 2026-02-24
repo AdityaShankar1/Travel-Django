@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:15
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: travel_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+
+  web:
+    build: .
+    # Note: For production on GCP, you'll eventually switch this to 'gunicorn'
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+      - ./media:/app/media
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgres://user:password@db:5432/travel_db
+    depends_on:
+      - db
