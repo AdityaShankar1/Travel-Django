@@ -1,14 +1,57 @@
-# ai_chat/services.py
-import requests
-import re
+import random
+
+def get_rule_based_response(prompt):
+    """Provides a deterministic response based on rules if AI is unreachable."""
+    text = prompt.lower()
+    
+    # 1. User asks anything irrelevant --> politely refuse
+    # We define irrelevance as not containing mentions of Tamil Nadu, travel, packages, or specific cities.
+    relevant_keywords = [
+        "tamil nadu", "travel", "package", "trip", "holiday", "tour",
+        "madurai", "trichy", "tanjore", "thanjavur", 
+        "ooty", "nilgiris", "kodaikanal",
+        "chennai", "kanchipuram", "rameshwaram", "rameswaram", "dhanushkodi"
+    ]
+    
+    is_weather_query = any(kw in text for kw in ("weather", "rain", "temperature", "climate", "forecast"))
+    is_relevant = any(kw in text for kw in relevant_keywords) or is_weather_query
+    
+    if not is_relevant:
+        return "I am a travel assistant for Tamil Nadu. I can only help you with travel-related queries for this region. Please ask something about our packages or destinations in Tamil Nadu."
+
+    # 2. User asks about weather --> tell them to check the Weather Alerts page 
+    if is_weather_query:
+        return "Please check our Weather Alerts page for the latest updates on weather conditions across Tamil Nadu: /weather/alerts/"
+
+    # 3. User asks about specific regions
+    heritage_cities = ["madurai", "trichy", "tanjore", "thanjavur"]
+    nature_cities = ["ooty", "nilgiris", "kodaikanal"]
+    coastal_cities = ["chennai", "kanchipuram", "rameshwaram", "rameswaram", "dhanushkodi"]
+    
+    packages = [
+        "Tamil Nadu Heritage Package",
+        "Nilgiris Nature Retreat Package",
+        "Coastal Tamil Nadu package"
+    ]
+
+    if any(city in text for city in heritage_cities):
+        return "Based on your interest in heritage sites, we suggest our 'Tamil Nadu Heritage Package'."
+    
+    if any(city in text for city in nature_cities):
+        return "For a refreshing experience in the hills, we suggest our 'Nilgiris Nature Retreat Package'."
+    
+    if any(city in text for city in coastal_cities):
+        return "If you love the sea and temples, we suggest our 'Coastal Tamil Nadu package'."
+
+    # Any other place (assuming it's still TN relevant but not explicitly in our cities list)
+    return f"Sorry that is not yet in our database, we'll make sure to add it soon. Until then we recommend you try some of our existing packages, such as the {random.choice(packages)}."
+
 
 def get_ollama_response(prompt):
-    """Encapsulates external API logic."""
+    """Encapsulates external API logic with a rule-based fallback."""
     try:
         # Rule-based filter: classify the user prompt and produce a
-        # compact, factual summary for the LLM to repackage. We refuse
-        # academic-cheating requests immediately and refuse non-TN
-        # locations immediately.
+        # compact, factual summary for the LLM to repackage.
         text = prompt.lower()
 
         # Guardrail text used when calling the LLM to repackage filtered output.
@@ -87,7 +130,8 @@ def get_ollama_response(prompt):
                     lml_prompt = f"{guardrail}\n\n{filtered}\nUser original prompt:\n{prompt}"
                     response = requests.post(
                         'http://localhost:11434/api/generate',
-                        json={'model': 'phi3', 'prompt': lml_prompt, 'stream': False}
+                        json={'model': 'phi3', 'prompt': lml_prompt, 'stream': False},
+                        timeout=5
                     )
                     raw_text = _extract_model_response(response)
                     return _sanitize_model_output(raw_text, summary=summary, is_package_intent=True) or f"{summary['package']} — {summary['reason']}"
@@ -117,7 +161,8 @@ def get_ollama_response(prompt):
                     lml_prompt = f"{guardrail}\n\n{filtered}\nUser original prompt:\n{prompt}"
                     response = requests.post(
                         'http://localhost:11434/api/generate',
-                        json={'model': 'phi3', 'prompt': lml_prompt, 'stream': False}
+                        json={'model': 'phi3', 'prompt': lml_prompt, 'stream': False},
+                        timeout=5
                     )
                     raw_text = _extract_model_response(response)
                     return _sanitize_model_output(raw_text, summary=summary, is_package_intent=True) or f"{summary['package']} — {summary['reason']}"
@@ -126,12 +171,14 @@ def get_ollama_response(prompt):
         full_prompt = f"{guardrail}\n\nUser prompt:\n{prompt}"
         response = requests.post(
             'http://localhost:11434/api/generate',
-            json={'model': 'phi3', 'prompt': full_prompt, 'stream': False}
+            json={'model': 'phi3', 'prompt': full_prompt, 'stream': False},
+            timeout=5
         )
         raw_text = _extract_model_response(response)
         return _sanitize_model_output(raw_text, is_package_intent=package_intent) or "Sorry, I couldn't find a matching package for your request."
-    except Exception as e:
-        return f"Service unavailable: {str(e)}"
+    except Exception:
+        # Fallback to rule-based response if Ollama is unreachable
+        return get_rule_based_response(prompt)
 
 
 def _extract_model_response(response):
