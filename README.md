@@ -41,6 +41,10 @@ The architecture follows a strict hierarchy:
 ## Bookings History Page:
 <img width="828" height="353" alt="image" src="https://github.com/user-attachments/assets/1804fe30-4953-4605-b263-6fc5ee7af609" />
 
+## Continuous Integration (CI):
+### GitLab:
+<img width="1005" height="491" alt="image" src="https://github.com/user-attachments/assets/01b39792-d058-417d-937e-8620f0394bad" />
+I've utilized GitLab to develop a successful CI pipeline
 
 ---
 *Built with professional-grade engineering practices with ❤️ for the travel industry *
