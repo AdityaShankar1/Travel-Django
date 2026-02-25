@@ -1,5 +1,11 @@
 # Travel-Django
 
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+![Django](https://img.shields.io/badge/django-6.0-092e20?logo=django&logoColor=white)
+![Python](https://img.shields.io/badge/python-3.14-blue?logo=python&logoColor=white)
+[![Pipeline Status](https://gitlab.com/adityashankar1-group/Travel-Django/badges/main/pipeline.svg)](https://gitlab.com/adityashankar1-group/Travel-Django/-/pipelines)
+
+
 ## TravelMaster using PostgreSQL + Django + Bootstrap CSS + Ollama (Phi 3.8)
 
 A professional, production-ready travel itinerary planner for Tamil Nadu, built with high engineering standards.
