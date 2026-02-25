@@ -3,6 +3,10 @@
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Django](https://img.shields.io/badge/django-6.0-092e20?logo=django&logoColor=white)
 ![Python](https://img.shields.io/badge/python-3.14-blue?logo=python&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-3%20passed-brightgreen?logo=pytest)
+![Code Style](https://img.shields.io/badge/code%20style-black-000000)
+![AI Model](https://img.shields.io/badge/Model-Phi--3-blue?style=flat-square&logo=microsoft)
+![Fallback](https://img.shields.io/badge/Fallback-Rule--based%20NLP-orange?style=flat-square&logo=probot)
 [![Pipeline Status](https://gitlab.com/adityashankar1-group/Travel-Django/badges/main/pipeline.svg)](https://gitlab.com/adityashankar1-group/Travel-Django/-/pipelines)
 
 
