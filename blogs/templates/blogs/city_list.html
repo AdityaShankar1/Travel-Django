@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary">Explore Our Cities</h1>
+        <p class="lead text-muted">Discover the soul of Tamil Nadu through its historic towns and natural wonders.</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for city in cities %}
+        <div class="col">
+            <div class="card h-100 shadow border-0 overflow-hidden rounded-4">
+                <div class="position-relative">
+                    <img src="{{ city.image_url }}" class="card-img-top" style="height: 250px; object-fit: cover;"
+                        alt="{{ city.city }}">
+                    <div class="position-absolute bottom-0 start-0 p-3 bg-dark bg-opacity-50 w-100 text-white">
+                        <h3 class="h5 mb-0">{{ city.city }}</h3>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="badge bg-soft-primary text-primary px-3 py-2 rounded-pill">
+                            <i class="bi bi-geo-alt"></i> Near {{ city.nearest_city }}
+                        </span>
+                        <span class="badge bg-soft-success text-success px-3 py-2 rounded-pill">
+                            <i class="bi bi-calendar-event"></i> {{ city.best_season }}
+                        </span>
+                    </div>
+                    <p class="card-text text-muted">Explore the heritage and landmarks within {{ city.city }}. Find the
+                        best places, travel times, and local insights.</p>
+                </div>
+                <div class="card-footer bg-white border-0 pb-4 px-4">
+                    <a href="{% url 'city_detail' city.city %}"
+                        class="btn btn-primary w-100 rounded-pill fw-bold py-2 shadow-sm">
+                        Read More <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <div class="alert alert-info">No cities found. Stay tuned for updates!</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .rounded-4 {
+        border-radius: 1rem !important;
+    }
+
+    .bg-soft-primary {
+        background-color: rgba(13, 110, 253, 0.1);
+    }
+
+    .bg-soft-success {
+        background-color: rgba(25, 135, 84, 0.1);
+    }
+
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
+    }
+
+    .card-img-top {
+        transition: transform 0.5s ease;
+    }
+
+    .card:hover .card-img-top {
+        transform: scale(1.1);
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'blog_list' %}">Blogs</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ metadata.city }}</li>
+        </ol>
+    </nav>
+
+    <div class="row align-items-center mb-5 mt-4">
+        <div class="col-md-6">
+            <h1 class="display-3 fw-bold text-primary mb-3">{{ metadata.city }}</h1>
+            <div class="d-flex gap-3 mb-4">
+                <div class="p-3 bg-light rounded-3 text-center border">
+                    <div class="small text-muted text-uppercase fw-bold">Best Season</div>
+                    <div class="h5 mb-0 text-success">{{ metadata.best_season }}</div>
+                </div>
+                <div class="p-3 bg-light rounded-3 text-center border">
+                    <div class="small text-muted text-uppercase fw-bold">Nearest City</div>
+                    <div class="h5 mb-0 text-info">{{ metadata.nearest_city }}</div>
+                </div>
+            </div>
+            <p class="lead text-muted">Discover the detailed travel insights for various places within {{ metadata.city
+                }}. We've curated the best spots to ensure your trip is memorable.</p>
+        </div>
+        <div class="col-md-6">
+            <div class="rounded-4 overflow-hidden shadow-lg">
+                <img src="{{ metadata.image_url }}" class="img-fluid w-100" style="height: 350px; object-fit: cover;"
+                    alt="{{ metadata.city }}">
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5 opacity-10">
+
+    <div class="row row-cols-1 g-4">
+        {% for blog in blogs %}
+        <div class="col">
+            <div class="card shadow-sm border-0 bg-white rounded-4 overflow-hidden hover-card">
+                <div class="row g-0">
+                    <div class="col-md-4 bg-light d-flex align-items-center justify-content-center p-4 border-end">
+                        <div class="text-center">
+                            <span class="badge bg-primary px-3 py-2 mb-3 rounded-pill">{{ blog.circuit }}</span>
+                            <h4 class="h5 fw-bold mb-0 text-dark">{{ blog.place }}</h4>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body p-4">
+                            <p class="card-text text-muted mb-4 fs-5">{{ blog.description }}</p>
+                            <div class="d-flex flex-wrap gap-4 text-secondary small">
+                                <div>
+                                    <i class="bi bi-arrow-right-circle text-primary me-1"></i>
+                                    <strong>Distance:</strong> {{ blog.distance_km }} KM
+                                </div>
+                                <div>
+                                    <i class="bi bi-clock text-primary me-1"></i>
+                                    <strong>Travel Time:</strong> {{ blog.travel_time_min }} Mins
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center py-5">
+            <p class="text-muted">No specific places listed for this city yet.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="text-center mt-5 mb-5">
+        <a href="{% url 'blog_list' %}" class="btn btn-outline-primary px-5 py-3 rounded-pill fw-bold">
+            <i class="bi bi-chevron-left me-2"></i> Back to Cities
+        </a>
+    </div>
+</div>
+
+<style>
+    .rounded-4 {
+        border-radius: 1rem !important;
+    }
+
+    .hover-card {
+        transition: all 0.3s ease;
+    }
+
+    .hover-card:hover {
+        transform: translateX(10px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .1) !important;
+        border-left: 5px solid var(--bs-primary) !important;
+    }
+
+    .opacity-10 {
+        opacity: 0.1;
+    }
+</style>
+{% endblock %}

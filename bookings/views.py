@@ -46,8 +46,16 @@ def create_booking(request, package_id):
 @login_required
 def my_bookings(request):
     """Shows all bookings for the logged-in user."""
-    user_bookings = Booking.objects.filter(user=request.user)
+    user_bookings = Booking.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'bookings/my_bookings.html', {'bookings': user_bookings})
+
+
+@login_required
+def cancel_booking(request, booking_id):
+    """Cancels a booking if it belongs to the user."""
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+    booking.delete()
+    return redirect('my_bookings')
 
 
 # --- API ViewSets ---

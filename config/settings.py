@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'ai_chat',
     'rest_framework',
     'weather',
+    'blogs',
 ]
 
 MIDDLEWARE = [

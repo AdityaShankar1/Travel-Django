@@ -14,6 +14,7 @@
                 <th>Start Date</th>
                 <th>Total Price</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -26,12 +27,19 @@
                 <td><strong>₹{{ booking.calculate_total_price }}</strong></td>
                 <td>
                     {% if booking.is_confirmed %}
-                        <span class="badge bg-success">Confirmed</span>
+                    <span class="badge bg-success">Confirmed</span>
                     {% else %}
-                        <span class="badge bg-warning text-dark">Pending Payment</span>
-                        <br>
-                        <button class="btn btn-sm btn-outline-primary mt-1">Pay Now</button>
+                    <span class="badge bg-warning text-dark">Pending Payment</span>
+                    <br>
+                    <button class="btn btn-sm btn-outline-primary mt-1">Pay Now</button>
                     {% endif %}
+                </td>
+                <td>
+                    <form action="{% url 'cancel_booking' booking.id %}" method="POST"
+                        onsubmit="return confirm('Are you sure you want to cancel this booking?');">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                    </form>
                 </td>
             </tr>
             {% endfor %}

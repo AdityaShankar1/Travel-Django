@@ -1,4 +1,5 @@
 import random
+import requests
 
 def get_rule_based_response(prompt):
     """Provides a deterministic response based on rules if AI is unreachable."""
@@ -10,14 +11,15 @@ def get_rule_based_response(prompt):
         "tamil nadu", "travel", "package", "trip", "holiday", "tour",
         "madurai", "trichy", "tanjore", "thanjavur", 
         "ooty", "nilgiris", "kodaikanal",
-        "chennai", "kanchipuram", "rameshwaram", "rameswaram", "dhanushkodi"
+        "chennai", "kanchipuram", "rameshwaram", "rameswaram", "dhanushkodi",
+        "hill station", "hill stations", "mountain"
     ]
     
     is_weather_query = any(kw in text for kw in ("weather", "rain", "temperature", "climate", "forecast"))
     is_relevant = any(kw in text for kw in relevant_keywords) or is_weather_query
     
     if not is_relevant:
-        return "I am a travel assistant for Tamil Nadu. I can only help you with travel-related queries for this region. Please ask something about our packages or destinations in Tamil Nadu."
+        return "I'd love to help, but I'm specialized in travel across Tamil Nadu! Feel free to ask me anything about our local packages or popular destinations in the state, and I'll do my best to guide you."
 
     # 2. User asks about weather --> tell them to check the Weather Alerts page 
     if is_weather_query:
@@ -35,16 +37,16 @@ def get_rule_based_response(prompt):
     ]
 
     if any(city in text for city in heritage_cities):
-        return "Based on your interest in heritage sites, we suggest our 'Tamil Nadu Heritage Package'."
+        return "Since you're interested in heritage sites, I'd highly recommend exploring our 'Tamil Nadu Heritage Package'. It's perfect for soaking in the rich history of places like Madurai and Tanjore!"
     
-    if any(city in text for city in nature_cities):
-        return "For a refreshing experience in the hills, we suggest our 'Nilgiris Nature Retreat Package'."
+    if any(city in text for city in nature_cities) or any(kw in text for kw in ["hill station", "hill stations", "mountain"]):
+        return "If you're looking for a refreshing escape to the hills, our 'Nilgiris Nature Retreat Package' is just what you need! It covers some beautiful spots in Ooty and the Nilgiris."
     
     if any(city in text for city in coastal_cities):
-        return "If you love the sea and temples, we suggest our 'Coastal Tamil Nadu package'."
+        return "For those who love the sea breeze and ancient coastal temples, our 'Coastal Tamil Nadu package' is a wonderful choice!"
 
     # Any other place (assuming it's still TN relevant but not explicitly in our cities list)
-    return f"Sorry that is not yet in our database, we'll make sure to add it soon. Until then we recommend you try some of our existing packages, such as the {random.choice(packages)}."
+    return f"That sounds like a great spot! While we're still expanding our database for that specific location, I'd suggest checking out our {random.choice(packages)} for now—it's very popular among our travelers!"
 
 
 def get_ollama_response(prompt):
@@ -56,22 +58,22 @@ def get_ollama_response(prompt):
 
         # Guardrail text used when calling the LLM to repackage filtered output.
         guardrail = (
-            "You are a travel assistant for our website. Only provide travel-"
-            "related information about locations inside the state of Tamil Nadu, India. "
-            "If the user asks about a location outside Tamil Nadu, reply: 'Sorry, we don't "
-            "have data for that location yet.'\n\n"
-            "VALUATION RULES:\n"
-            "1. Only use these exact package names: 'Coastal Tamil Nadu package', "
+            "You are a warm and helpful travel assistant for our website. Your goal is to "
+            "make travelers feel welcome and excited about visiting Tamil Nadu, India.\n\n"
+            "GUIDELINES:\n"
+            "1. Focus ONLY on locations inside Tamil Nadu. If a location is outside, say: "
+            "'That sounds lovely, but we currently specialize in Tamil Nadu. I'd be happy "
+            "to help you plan a trip to one of our beautiful local spots instead!'\n"
+            "2. Strictly use these exact package names: 'Coastal Tamil Nadu package', "
             "'Nilgiris Nature Retreat Package', 'Tamil Nadu Heritage Package'.\n"
-            "2. If you are unsure if a location matches a package, or if it is not a major "
-            "tourist spot in Tamil Nadu, reply: 'Sorry, we don't have specific data for "
-            "that location in our current packages.'\n"
-            "3. If coastal/sea/beach/bay in Tamil Nadu -> 'Coastal Tamil Nadu package'.\n"
-            "4. If hill/mountain/ghat in Tamil Nadu -> 'Nilgiris Nature Retreat Package'.\n"
-            "5. If a known heritage city (like Madurai, Tanjore) -> 'Tamil Nadu Heritage Package'.\n"
-            "6. DO NOT invent justifications. Respond in one short sentence: "
-            "'<Package name> — <short reason>'.\n"
-            "7. If asked for homework or academic cheating, politely refuse."
+            "3. If unsure about a location, say: 'I don't have specific details for that spot "
+            "in our current packages just yet, but I can tell you about our other amazing "
+            "TN circuits!'\n"
+            "4. Match coastal/beach spots to 'Coastal Tamil Nadu package'.\n"
+            "5. Match hills/mountains to 'Nilgiris Nature Retreat Package'.\n"
+            "6. Match heritage cities (Madurai, Tanjore, etc.) to 'Tamil Nadu Heritage Package'.\n"
+            "7. Be conversational but concise (2-3 sentences max). Use a friendly tone.\n"
+            "8. If asked for homework or academic help, politely refuse and offer travel tips instead."
         )
 
         # 1) Refuse academic cheating/homework requests outright.

@@ -8,6 +8,7 @@ from bookings.views import (
     booking_list,
     create_booking,
     my_bookings, # Now this will work because we added it above
+    cancel_booking,
     BookingViewSet,
     PlaceViewSet,
     CircuitViewSet,
@@ -26,10 +27,12 @@ urlpatterns = [
     path('', booking_list, name='home'),
     path('chat/', chat_view, name='chat'),
     path('my-bookings/', my_bookings, name='my_bookings'),
+    path('cancel-booking/<int:booking_id>/', cancel_booking, name='cancel_booking'),
     path('book/<int:package_id>/', create_booking, name='create_booking'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('api/', include(router.urls)),
     path('weather/', include('weather.urls')),
+    path('blogs/', include('blogs.urls')),
 ]
 
 if settings.DEBUG:
