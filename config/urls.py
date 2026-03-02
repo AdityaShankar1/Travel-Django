@@ -9,6 +9,8 @@ from bookings.views import (
     create_booking,
     my_bookings, # Now this will work because we added it above
     cancel_booking,
+    process_payment,
+    about_us,
     BookingViewSet,
     PlaceViewSet,
     CircuitViewSet,
@@ -28,6 +30,8 @@ urlpatterns = [
     path('chat/', chat_view, name='chat'),
     path('my-bookings/', my_bookings, name='my_bookings'),
     path('cancel-booking/<int:booking_id>/', cancel_booking, name='cancel_booking'),
+    path('process-payment/<int:booking_id>/', process_payment, name='process_payment'),
+    path('about-us/', about_us, name='about_us'),
     path('book/<int:package_id>/', create_booking, name='create_booking'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('api/', include(router.urls)),

@@ -63,6 +63,8 @@ class Booking(models.Model):
     start_date = models.DateField()
     duration_days = models.PositiveIntegerField(default=2)
     is_confirmed = models.BooleanField(default=False)
+    is_paid = models.BooleanField(default=False)
+    payment_method = models.CharField(max_length=50, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def calculate_total_price(self):

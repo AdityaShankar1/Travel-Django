@@ -52,10 +52,29 @@ def my_bookings(request):
 
 @login_required
 def cancel_booking(request, booking_id):
-    """Cancels a booking if it belongs to the user."""
+    """Cancels a booking if it belongs to the user and hasn't been paid yet."""
     booking = get_object_or_404(Booking, id=booking_id, user=request.user)
-    booking.delete()
+    if not booking.is_paid:
+        booking.delete()
     return redirect('my_bookings')
+
+
+@login_required
+def process_payment(request, booking_id):
+    """Processes payment for a booking."""
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+    if request.method == 'POST':
+        payment_method = request.POST.get('payment_method')
+        if payment_method:
+            booking.is_paid = True
+            booking.payment_method = payment_method
+            booking.save()
+    return redirect('my_bookings')
+
+
+def about_us(request):
+    """Renders the About Us page."""
+    return render(request, 'about_us.html')
 
 
 # --- API ViewSets ---

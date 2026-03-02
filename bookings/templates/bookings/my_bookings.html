@@ -26,20 +26,36 @@
                 <td>{{ booking.start_date }}</td>
                 <td><strong>₹{{ booking.calculate_total_price }}</strong></td>
                 <td>
-                    {% if booking.is_confirmed %}
-                    <span class="badge bg-success">Confirmed</span>
+                    {% if booking.is_paid %}
+                    <span class="badge bg-success">Paid via {{ booking.payment_method }}</span>
+                    {% elif booking.is_confirmed %}
+                    <span class="badge bg-info">Confirmed</span>
                     {% else %}
-                    <span class="badge bg-warning text-dark">Pending Payment</span>
-                    <br>
-                    <button class="btn btn-sm btn-outline-primary mt-1">Pay Now</button>
+                    <form action="{% url 'process_payment' booking.id %}" method="POST"
+                        class="d-flex gap-1 align-items-center">
+                        {% csrf_token %}
+                        <select name="payment_method" class="form-select form-select-sm" required style="width: 120px;"
+                            title="Select Payment Method">
+                            <option value="" selected disabled>Mode</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="UPI">UPI</option>
+                            <option value="Net Banking">Net Banking</option>
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-primary">Pay</button>
+                    </form>
                     {% endif %}
                 </td>
                 <td>
+                    {% if not booking.is_paid %}
                     <form action="{% url 'cancel_booking' booking.id %}" method="POST"
                         onsubmit="return confirm('Are you sure you want to cancel this booking?');">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
                     </form>
+                    {% else %}
+                    <button class="btn btn-sm btn-secondary" disabled
+                        title="Paid bookings cannot be cancelled">Cancel</button>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}

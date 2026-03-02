@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="mb-4">
+                <img src="/media/profile_pic.png" alt="Aditya Shankar" class="rounded-circle shadow"
+                    style="width: 200px; height: 200px; object-fit: cover; border: 5px solid white;">
+            </div>
+            <h1 class="display-4 fw-bold text-primary mb-3">About Aditya Shankar</h1>
+            <p class="lead text-muted mb-5">Lead Developer & Travel Enthusiast</p>
+
+            <div class="card border-0 shadow-sm rounded-4 text-start mb-5">
+                <div class="card-body p-5">
+                    <h2 class="h4 fw-bold mb-4">Why I Built This</h2>
+                    <p>I've always had a deep passion for exploring the diverse landscapes and rich cultural heritage of
+                        India. Tamil Nadu, with its ancient temples, misty hills, and serene coastlines, has always been
+                        close to my heart. I built this <strong>Travel-Django</strong> project to simplify the way
+                        travelers plan their circuits across this beautiful state, combining modern technology with the
+                        spirit of adventure.</p>
+
+                    <h2 class="h4 fw-bold mt-5 mb-4">How to Use</h2>
+                    <p>It's simple! browse our <strong>Travel Packages</strong> on the home page, select a circuit that
+                        interests you, and customize your booking. You can также explore our <strong>Blogs</strong>
+                        section for detailed insights into various cities and landmarks. Once you've made a booking, you
+                        can track it in <strong>My Bookings</strong> and proceed with payment to confirm your spot.</p>
+                </div>
+            </div>
+
+            <div class="text-start">
+                <h2 class="h3 fw-bold mb-4">Frequently Asked Questions</h2>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne">
+                                Why only Tamil Nadu for now?
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                We're starting with Tamil Nadu to ensure we provide the most detailed and curated
+                                experience possible. However, we're already working on expanding to other states
+                                shortly!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo">
+                                Can I cancel my booking?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                Yes, you can cancel any booking as long as the payment hasn't been processed. Once paid,
+                                the booking is finalized and cannot be cancelled through the app.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0 mb-3 shadow-sm rounded-4 overflow-hidden">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseThree">
+                                What payment methods are accepted?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted">
+                                We currently support Credit/Debit Cards, UPI, and Net Banking for a seamless checkout
+                                experience.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .rounded-4 {
+        border-radius: 1rem !important;
+    }
+
+    .accordion-button:not(.collapsed) {
+        background-color: rgba(13, 110, 253, 0.05);
+        color: var(--bs-primary);
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock %}

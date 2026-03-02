@@ -17,4 +17,40 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const packageId = parseInt("{{ package.id }}");
+        const dateInput = document.querySelector('input[type="date"]');
+
+        // Mapping: Package ID -> Recommended Quarter (1-4)
+        const recommendedQuarters = {
+            1: 1, // Heritage -> Q1
+            2: 2, // Nilgiris -> Q2
+            3: 1, // Coastal -> Q1
+            7: 1, // Kanchi -> Q1
+            8: 1, // Tanjore -> Q1
+            9: 1  // Tuticorin -> Q1
+        };
+
+        if (dateInput) {
+            dateInput.addEventListener('change', function () {
+                const date = new Date(this.value);
+                if (!isNaN(date.getTime())) {
+                    const month = date.getMonth(); // 0-11
+                    const quarter = Math.floor(month / 3) + 1;
+
+                    const recQuarter = recommendedQuarters[packageId];
+                    if (recQuarter && quarter !== recQuarter) {
+                        const quarters = ["Jan-Mar", "Apr-Jun", "Jul-Sep", "Oct-Dec"];
+                        const confirmMsg = `The best season for this package is Q${recQuarter} (${quarters[recQuarter - 1]}). Are you sure you want to book in Q${quarter} (${quarters[quarter - 1]})?`;
+                        if (!confirm(confirmMsg)) {
+                            this.value = '';
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}
