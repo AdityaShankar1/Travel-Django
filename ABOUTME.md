@@ -22,6 +22,20 @@ Once you've made a booking, you can track it in My Bookings and proceed with pay
 From a data modeling perspective, Tamil Nadu's geography allows for a rich many-to-many relationship mapping between circuits and various cities. 
 This provided the ideal testing ground for a robust, production-ready relational schema before expanding geographically.
 
+## Tech Stack FAQs:
+
+### 🐘 Why PostgreSQL for a travel application?
+Travel applications rely on complex, relational data—linking Packages to Circuits, Circuits to Places, and Places to Hotels.
+PostgreSQL is designed for integrity, robust data handling, and complex queries, ensuring your booking data remains accurate.
+
+### 🐍 Why Django instead of MERN (MongoDB/Express/React/Node)?
+While MERN is great for real-time applications, Django provides a strict relational structure essential for travel bookings. 
+Django's built-in ORM makes managing the relational data model (Packages -> Circuits -> Places) much more efficient than using a document-based database like MongoDB.
+
+### 🤖 Why use Ollama (Phi 3.8) for the chatbot?
+We needed a private, resource-light AI solution to run guardrails locally without sending user trip data to third-party APIs. 
+Refer to the ai_chat folder for details on how the custom hybrid rule-based guardrails integrate with Phi 3 to optimize token usage and ensure data privacy.
+
 ## License Queries:
 
 ### ⚖️ Why did you choose the GNU AGPL v3 license?
