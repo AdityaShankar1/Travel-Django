@@ -1,8 +1,7 @@
+# Frequently Asked Questions
+
 # Aditya Shankar
 ## Python (Django) & MERN Developer
-# Aditya Shankar
-
-[![PES University](https://img.shields.io/badge/PES%20University-Student-blue?logo=academia)](https://pes.edu)
 ![Django Developer](https://img.shields.io/badge/Developer-Django-green?logo=django)
 
 ## Gneneral Questions:
@@ -24,33 +23,33 @@ This provided the ideal testing ground for a robust, production-ready relational
 
 ## Tech Stack FAQs:
 
-### 🐘 Why PostgreSQL for a travel application?
+### Why PostgreSQL for a travel application?
 Travel applications rely on complex, relational data—linking Packages to Circuits, Circuits to Places, and Places to Hotels.
 PostgreSQL is designed for integrity, robust data handling, and complex queries, ensuring your booking data remains accurate.
 
-### 🐍 Why Django instead of MERN (MongoDB/Express/React/Node)?
+### Why Django instead of MERN (MongoDB/Express/React/Node)?
 While MERN is great for real-time applications, Django provides a strict relational structure essential for travel bookings. 
 Django's built-in ORM makes managing the relational data model (Packages -> Circuits -> Places) much more efficient than using a document-based database like MongoDB.
 
-### 🤖 Why use Ollama (Phi 3.8) for the chatbot?
+### Why use Ollama (Phi 3.8) for the chatbot?
 We needed a private, resource-light AI solution to run guardrails locally without sending user trip data to third-party APIs. 
 Refer to the ai_chat folder for details on how the custom hybrid rule-based guardrails integrate with Phi 3 to optimize token usage and ensure data privacy.
 
 ## License Queries:
 
-### ⚖️ Why did you choose the GNU AGPL v3 license?
+### Why did you choose the GNU AGPL v3 license?
 My goal is to foster a collaborative environment where improvements to the travel planner are shared back with the community. The AGPL v3 ensures that if anyone modifies this code and runs it as a service over a network (like a website), they **must make the source code of their modifications available to their users**. 
 
-### 🌐 Does this license protect me if I host the app on cloud?
+### Does this license protect me if I host the app on cloud?
 Yes, it makes the protection stronger. By hosting the application on cloud and making it accessible to users over the internet, we ensure that **anyone using the service has the right to access the source code of the version they are interacting with**.
 
-### 🚀 Can I use this code for my own commercial travel project?
+### Can I use this code for my own commercial travel project?
 Yes, you can use, modify, and even sell services based on this code. 
 However, if you modify the code and offer it as a service over a network, you are legally required to release the source code of your modifications under the same AGPL v3 license.
 
-### 🛠️ What if I only take a small part of the code for "inspiration"?
+### What if I only take a small part of the code for "inspiration"?
 Taking inspiration or code snippets to use in your own separate projects is **generally fine**. However, if you take significant portions of the codebase to create a rebranded or competing service, the AGPL v3 requires that your service also be licensed under AGPL v3 and its source code be made public.
 However, **refer to Clause 1 (Definitions) and Clause 13** of AGPL for a clearer outline.
 
-### 🎓 Can I use this for educational or personal projects?
+### Can I use this for educational or personal projects?
 Absolutely. AGPL v3 is fully compatible with educational use, research, and personal projects.
