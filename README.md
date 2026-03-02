@@ -53,15 +53,16 @@ The architecture follows a strict hierarchy:
 
 ### March Update : Added Cancellation Option:
 
-<img width="732" height="733" alt="image" src="https://github.com/user-attachments/assets/0d2a1003-8f32-4d56-8bab-9a5599bb3d61" />
+<img width="681" height="170" alt="image" src="https://github.com/user-attachments/assets/9699c1dd-08d3-4610-84e4-513e7cf37965" />
 
 The user cam now cancel their booking and upon cancellation of all bookings, it prompts them to go back to home page and book a new trip:
 
-<img width="732" height="733" alt="image" src="https://github.com/user-attachments/assets/e906765b-7f8d-4b64-aadf-0074740db532" />
+<img width="663" height="141" alt="image" src="https://github.com/user-attachments/assets/1971e212-7330-4951-92f0-3ec599433366" />
+
 
 ## Blog Page :
 
-<img width="732" height="733" alt="image" src="https://github.com/user-attachments/assets/1285e36b-e9a6-4218-b177-2caa93dcce43" />
+<img width="694" height="642" alt="image" src="https://github.com/user-attachments/assets/655f300f-8a62-4f34-bb3a-80085c762696" />
 
 ## Continuous Integration (CI):
 ### GitLab:
