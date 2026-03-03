@@ -59,6 +59,7 @@ The user cam now cancel their booking and upon cancellation of all bookings, it 
 
 <img width="663" height="141" alt="image" src="https://github.com/user-attachments/assets/1971e212-7330-4951-92f0-3ec599433366" />
 
+For Cross-Browser Compatibility: [View Firefox (Gecko) Browser Compatibility Report](https://github.com/AdityaShankar1/Travel-Django/wiki/Cross-Browser-Compatibilty-:-Mozilla-Firefox-(Gecko)-%F0%9F%A6%8A)
 
 ## Blog Page :
 
