@@ -70,5 +70,9 @@ For Cross-Browser Compatibility: [View Firefox (Gecko) Browser Compatibility Rep
 <img width="1005" height="491" alt="image" src="https://github.com/user-attachments/assets/01b39792-d058-417d-937e-8620f0394bad" />
 I've utilized GitLab to develop a successful CI pipeline
 
+## Usage :
+Strictly Non-Commercial Use Only!
+For Commercial Use, Contact the Owmer of the Repo
+
 ---
 *Built with professional-grade engineering practices with ❤️ for the travel industry *
