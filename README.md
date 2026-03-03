@@ -70,9 +70,13 @@ For Cross-Browser Compatibility: [View Firefox (Gecko) Browser Compatibility Rep
 <img width="1005" height="491" alt="image" src="https://github.com/user-attachments/assets/01b39792-d058-417d-937e-8620f0394bad" />
 I've utilized GitLab to develop a successful CI pipeline
 
+---
 ## Usage :
 Strictly Non-Commercial Use Only!
-For Commercial Use, Contact the Owmer of the Repo
+
+For Commercial Use, Contact the Owner of the Repo.
+
+This code is AGPL v3. If you are a recruiter, I am happy to provide a private version of the code under a more permissive license should we enter an employment agreement.
 
 ---
 *Built with professional-grade engineering practices with ❤️ for the travel industry *
